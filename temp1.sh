@@ -1,1 +1,0 @@
-bash get.sh liuchenrui
