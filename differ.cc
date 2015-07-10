@@ -43,25 +43,40 @@ void Download(){
 		myAC.insert(temp);	
 	}
 }
+void Read() {
+	ifstream targetFile,myFile;
+	targetFile.open("target.dat");
+	myFile.open("myself.dat");
+	int temp;
+	while(targetFile>>temp) {
+		targetAC.insert(temp);
+	}
+	while(myFile>>temp) {	
+		myAC.insert(temp);	
+	}
+	targetFile.close();
+	myFile.close();
+}
 
 int main() {
-	Download();
+	Read();
 	set_intersection(targetAC.begin(), targetAC.end(), myAC.begin(), myAC.end(), inserter(intersectionAC, intersectionAC.begin()));
 	set_difference(targetAC.begin(),targetAC.end(),intersectionAC.begin(),intersectionAC.end(),inserter(targetOnly,targetOnly.begin()));
 	set_difference(myAC.begin(),myAC.end(),intersectionAC.begin(),intersectionAC.end(),inserter(myselfOnly,myselfOnly.begin()));
 	set<int>::iterator sitr;
-	cout<<"Both AC:\n";
+	cout<<"Both AC:\nnum:"<<intersectionAC.size()<<endl;
 	for(sitr=intersectionAC.begin();sitr!=intersectionAC.end();sitr++){
-		cout<<*sitr<<",";
+		cout<<setw(6)<<*sitr;
 	}
 	cout<<endl;
-	cout<<"only target AC:\n";
+	cout<<"only target AC:\n<<num:"<<targetOnly.size()<<endl;
 	for(sitr=targetOnly.begin();sitr!=targetOnly.end();++sitr){
-		cout<<*sitr<<",";
+		cout<<setw(6)<<*sitr;
 	}
 	cout<<endl;
+	cout<<"only myself AC:\nnum:"<<myselfOnly.size()<<endl;
 	for(sitr=myselfOnly.begin();sitr!=myselfOnly.end();sitr++){
-		cout<<*sitr<<",";
+		cout<<setw(6)<<*sitr;
 	}
 	cout<<endl;
 }
